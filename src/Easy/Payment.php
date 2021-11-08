@@ -124,6 +124,23 @@ class Payment extends EasyType
   }
 
   /**
+   * Update payment reference information.
+   *
+   * @param array $options
+   * @throws EasyException
+   * @return string http response status code
+   */
+  public static function updateReferenceInfomation($id, $options = [])
+  {
+    try {
+      return Easy::client()
+                 ->put('payments/' . $id . '/referenceinformation', (object) $options);
+    } catch (BadRequestException $e) {
+      throw new PaymentException($e->getMessage(), $e->getCode());
+    }
+  }
+
+  /**
    * Generates the checkout form
    *
    * @param string $elementId ID of container element
